@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/antonsipin/life/issues"
   },
-  "homepage": "https://github.com/antonsipin/life#readme"
+  "homepage": "https://github.com/antonsipin/life#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
 }
