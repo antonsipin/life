@@ -1,0 +1,22 @@
+{
+  "name": "life",
+  "version": "1.0.0",
+  "description": "Browser game",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/antonsipin/life.git"
+  },
+  "keywords": [
+    "password"
+  ],
+  "author": "antonsipin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antonsipin/life/issues"
+  },
+  "homepage": "https://github.com/antonsipin/life#readme"
+}
