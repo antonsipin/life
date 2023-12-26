@@ -2,13 +2,17 @@ const rootDiv = document.querySelector('.wrapper')
 const fieldDiv = document.querySelector('.fieldDiv')
 const createButton = document.querySelector('.btnCreate')
 const startButton = document.querySelector('.btnStart')
+const seedButton = document.querySelector('.btnSeed')
 const buttonWidth = 50
 const select = document.querySelector('.select')
+const size = Math.round(select.value/buttonWidth)
 
 createButton.addEventListener('click', () => {
 	boardCreate(select.value || window.innerWidth)
 })
 startButton.addEventListener('click', () => step())
+
+seedButton.addEventListener('click', () => seed())
 
 function boardCreate (viewport) {
 	let count = 0
@@ -36,6 +40,44 @@ function boardCreate (viewport) {
 
 function getPoint (x, y) {
 	return String(x) + String(y)
+}
+
+function seed () {
+	for (let i = 0; i < size; i++) {
+		let btn = document.getElementById(`${String(i + 1) + String(i+1)}`)
+		if (btn) {
+					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+					btn.setAttribute('class', 'selected')
+				}
+	}
+	for (let i = 0; i < size; i++) {
+		let btn = document.getElementById(`${String(i) + String(i+2)}`)
+		if (btn) {
+					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+					btn.setAttribute('class', 'selected')
+				}
+	}
+	for (let i = 5; i < size; i++) {
+		let btn = document.getElementById(`${String(i + 3) + String(i+2)}`)
+		if (btn) {
+					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+					btn.setAttribute('class', 'selected')
+				}
+	}
+	for (let i = 5; i < size; i++) {
+		let btn = document.getElementById(`${String(i + 3) + String(i+1)}`)
+		if (btn) {
+					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+					btn.setAttribute('class', 'selected')
+				}
+	}
+	for (let i = 5; i < size; i++) {
+		let btn = document.getElementById(`${String(i + 3) + String(i)}`)
+		if (btn) {
+					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+					btn.setAttribute('class', 'selected')
+				}
+	}
 }
 
 function step () {
