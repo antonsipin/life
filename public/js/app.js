@@ -24,9 +24,7 @@ function boardCreate (viewport) {
 			let span = document.createElement('span')
 			span.addEventListener('click', () => {
 				let selected = document.getElementsByClassName('selected')
-				if (selected.length <= 5) {
 					span.innerHTML = `<button class="selected" id="${j}${i}" style="background-color: red; width: 50px; height: 50px;"></button>`
-				}
 			})
 			span.innerHTML = `<button id="${j}${i}" style="width: 50px; height: 50px;"></button>`
 			div.appendChild(span)
@@ -43,7 +41,8 @@ function getPoint (x, y) {
 function step () {
 	const size = Math.round(select.value/buttonWidth) - 1
 	let selected = document.getElementsByClassName('selected')
-	const selectedIds = []
+	if (selected) {
+		const selectedIds = []
 	for (let i = 0; i < selected.length; i++) {
 		selectedIds.push(selected[i].getAttribute('id'))
 	}
@@ -92,73 +91,122 @@ function step () {
 		let count = 0
 		for (let j = 0; j < allPoints[i].length; j++) {
 			if (selectedIds.includes(allPoints[i][j])) {
-				console.log(allPoints[i][j])
 				count++
 			}
 		}
-			if (count !== 2 && count !== 3) {
+			if (count < 2 || count > 3) {
 				let btn = document.getElementById(`${selectedIds[i]}`)
-				btn.setAttribute('style', 'width: 50px; height: 50px;')
-				btn.removeAttribute('class')
-			} else if (count >= 1) {
+				if (btn) {
+					btn.setAttribute('style', 'width: 50px; height: 50px;')
+					btn.removeAttribute('class')
+				}
+				
+			} else {
 				let allPointsForEmpty = []
-				let emptyCount = 0 
 				let toLive = []
-
 				for (let j = 0; j < allPoints[i].length; j++) {
 					let x
 					let y
 					let point = []
 					let element = allPoints[i][j]
-					x = Number(element[0]) - 1
-					y = element[1]
-					
-					point = [...point, getPoint(x, y)]
-					y = Number(element[1]) - 1
-
-					point = [...point, getPoint(x, y)]
-
-					x = element[0]
-					y = Number(element[1]) - 1
-					point = [...point, getPoint(x, y)]
-
-					x = Number(element[0]) + 1
-					y = Number(element[1]) - 1
-					point = [...point, getPoint(x, y)]
-
-					x = Number(element[0]) + 1
-					y = Number(element[1])
-					point = [...point, getPoint(x, y)]
-
-					x = Number(element[0]) + 1
-					y = Number(element[1]) + 1
-					point = [...point, getPoint(x, y)]
-
-					x = Number(element[0])
-					y = Number(element[1]) + 1
-					point = [...point, getPoint(x, y)]
-
-					x = Number(element[0]) - 1
-					y = Number(element[1]) + 1
-					point = [...point, getPoint(x, y)]
-
-					allPointsForEmpty.push(point)
-				}
-					console.log('allPointsForEmpty: ', allPointsForEmpty)
-					for (let j = 0; j < allPointsForEmpty.length; j++) {
+						x = Number(element[0]) - 1
+						y = element[1]
 						
-						if (selectedIds.includes(allPointsForEmpty[i][j])) {
-							emptyCount++
-							if (emptyCount >= 3) {
-								let btn = document.getElementById(`${allPointsForEmpty[i][j]}`)
-								console.log(emptyCount)
-								btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-								btn.setAttribute('class', 'selected')
+						point = [...point, getPoint(x, y)]
+						y = Number(element[1]) - 1
+
+						point = [...point, getPoint(x, y)]
+
+						x = element[0]
+						y = Number(element[1]) - 1
+						point = [...point, getPoint(x, y)]
+
+						x = Number(element[0]) + 1
+						y = Number(element[1]) - 1
+						point = [...point, getPoint(x, y)]
+
+						x = Number(element[0]) + 1
+						y = Number(element[1])
+						point = [...point, getPoint(x, y)]
+
+						x = Number(element[0]) + 1
+						y = Number(element[1]) + 1
+						point = [...point, getPoint(x, y)]
+
+						x = Number(element[0])
+						y = Number(element[1]) + 1
+						point = [...point, getPoint(x, y)]
+
+						x = Number(element[0]) - 1
+						y = Number(element[1]) + 1
+						point = [...point, getPoint(x, y)]
+
+						allPointsForEmpty.push(point)
+					
+				}
+					for (let i = 0; i < allPointsForEmpty.length; i++) {
+						let emptyCount = 0 
+
+						for (let j = 0; j < allPointsForEmpty[i].length; j++) {
+							if (selectedIds.includes(allPointsForEmpty[i][j])) {
+
+								emptyCount++
+								if (emptyCount >= 3) {
+									let point = allPointsForEmpty[i][j]
+									let x
+									let y
+									switch (j) {
+										case 0:
+										x = Number(point[0]) + 1
+										y = point[1]
+										break;
+										case 1:
+										x = Number(point[0]) + 1
+										y = Number(point[1]) + 1
+										break;
+										case 2:
+										x = Number(point[0])
+										y = Number(point[1]) + 1
+										break;
+										case 3:
+										x = Number(point[0]) - 1
+										y = Number(point[1]) + 1
+										break;
+										case 4:
+										x = Number(point[0]) - 1
+										y = Number(point[1])
+										break;
+										case 5:
+										x = Number(point[0]) - 1
+										y = Number(point[1]) - 1
+										break;
+										case 6:
+										x = Number(point[0])
+										y = Number(point[1] - 1)
+										break;
+										case 7:
+										x = Number(point[0]) + 1
+										y = Number(point[1]) - 1
+										break;
+									}
+									let coord = getPoint(x, y)
+									let btn = document.getElementById(`${coord}`)
+									if (btn) {
+										btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+										btn.setAttribute('class', 'selected')
+									}
+									
+								}
 							}
 						}
 					}
 			}
 		}
+	}
+	let currentSelected = document.getElementsByClassName('selected')
+	if (currentSelected && currentSelected.length) {
+		setInterval(() => step(), 1000)
+	}
 	}
 }
 
