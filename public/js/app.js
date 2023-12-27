@@ -2,6 +2,7 @@ const rootDiv = document.querySelector('.wrapper')
 const fieldDiv = document.querySelector('.fieldDiv')
 const createButton = document.querySelector('.btnCreate')
 const startButton = document.querySelector('.btnStart')
+const stopButton = document.querySelector('.btnStop')
 const seedButton = document.querySelector('.btnSeed')
 const buttonWidth = 50
 const select = document.querySelector('.select')
@@ -16,6 +17,8 @@ startButton.addEventListener('click', () => step())
 
 seedButton.addEventListener('click', () => seed())
 
+stopButton.addEventListener('click', () => stop())
+
 function renderTime () {
 	const date = new Date()
 	const hours = date.getHours()
@@ -24,6 +27,10 @@ function renderTime () {
 	if (timeDiv) {
 		timeDiv.innerHTML = `<span class="timeSpan" style="color: red; width: 100%; height: 50px;">Generation Time: ${hours}:${minutes}:${seconds}</span>`
 	}
+}
+
+function stop () {
+	location.reload()
 }
 
 function boardCreate (viewport) {
