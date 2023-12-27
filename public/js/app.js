@@ -6,13 +6,25 @@ const seedButton = document.querySelector('.btnSeed')
 const buttonWidth = 50
 const select = document.querySelector('.select')
 const size = Math.round(select.value/buttonWidth)
+const timeDiv = document.querySelector('.timeDiv')
 
 createButton.addEventListener('click', () => {
+	const select = document.querySelector('.select')
 	boardCreate(select.value || window.innerWidth)
 })
 startButton.addEventListener('click', () => step())
 
 seedButton.addEventListener('click', () => seed())
+
+function renderTime () {
+	const date = new Date()
+	const hours = date.getHours()
+	const minutes = date.getMinutes()
+	const seconds = date.getSeconds()
+	if (timeDiv) {
+		timeDiv.innerHTML = `<span class="timeSpan" style="color: red; width: 100%; height: 50px;">Time: ${hours}:${minutes}:${seconds}</span>`
+	}
+}
 
 function boardCreate (viewport) {
 	let count = 0
@@ -43,47 +55,56 @@ function getPoint (x, y) {
 }
 
 function seed () {
-	for (let i = 0; i < size; i++) {
-		let btn = document.getElementById(`${String(i + 1) + String(i+1)}`)
-		if (btn) {
-					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-					btn.setAttribute('class', 'selected')
-				}
+	const select = document.querySelector('.select')
+	if (select) {
+		const size = Math.round(select.value/buttonWidth)
+		for (let i = 0; i < size; i++) {
+			let btn = document.getElementById(`${String(i + 1) + String(i+1)}`)
+			if (btn) {
+						btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+						btn.setAttribute('class', 'selected')
+					}
+			}
+			for (let i = 0; i < size; i++) {
+				let btn = document.getElementById(`${String(i) + String(i+6)}`)
+				if (btn) {
+							btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+							btn.setAttribute('class', 'selected')
+						}
+			}
+			for (let i = 5; i < size; i++) {
+				let btn = document.getElementById(`${String(i + 3) + String(i+6)}`)
+				if (btn) {
+							btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+							btn.setAttribute('class', 'selected')
+						}
+			}
+			for (let i = 5; i < size; i++) {
+				let btn = document.getElementById(`${String(i + 3) + String(i+1)}`)
+				if (btn) {
+							btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+							btn.setAttribute('class', 'selected')
+						}
+			}
+			for (let i = 5; i < size; i++) {
+				let btn = document.getElementById(`${String(i + 3) + String(i)}`)
+				if (btn) {
+							btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
+							btn.setAttribute('class', 'selected')
+						}
+			}
 	}
-	for (let i = 0; i < size; i++) {
-		let btn = document.getElementById(`${String(i) + String(i+2)}`)
-		if (btn) {
-					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-					btn.setAttribute('class', 'selected')
-				}
-	}
-	for (let i = 5; i < size; i++) {
-		let btn = document.getElementById(`${String(i + 3) + String(i+2)}`)
-		if (btn) {
-					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-					btn.setAttribute('class', 'selected')
-				}
-	}
-	for (let i = 5; i < size; i++) {
-		let btn = document.getElementById(`${String(i + 3) + String(i+1)}`)
-		if (btn) {
-					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-					btn.setAttribute('class', 'selected')
-				}
-	}
-	for (let i = 5; i < size; i++) {
-		let btn = document.getElementById(`${String(i + 3) + String(i)}`)
-		if (btn) {
-					btn.setAttribute('style', 'background-color: red; width: 50px; height: 50px;')
-					btn.setAttribute('class', 'selected')
-				}
-	}
+	
+	renderTime()
 }
 
 function step () {
+	const select = document.querySelector('.select')
 	const size = Math.round(select.value/buttonWidth) - 1
 	let selected = document.getElementsByClassName('selected')
-	if (selected) {
+	if (selected.length) {
+		renderTime()
+
 		const selectedIds = []
 	for (let i = 0; i < selected.length; i++) {
 		selectedIds.push(selected[i].getAttribute('id'))
@@ -145,7 +166,6 @@ function step () {
 				
 			} else {
 				let allPointsForEmpty = []
-				let toLive = []
 				for (let j = 0; j < allPoints[i].length; j++) {
 					let x
 					let y
@@ -247,7 +267,9 @@ function step () {
 	}
 	let currentSelected = document.getElementsByClassName('selected')
 	if (currentSelected && currentSelected.length) {
-		setInterval(() => step(), 1000)
+		setInterval(() => {
+			step()
+		}, 1000)
 	}
 	}
 }

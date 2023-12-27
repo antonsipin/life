@@ -21,7 +21,7 @@
 }
 
 .fieldDiv {
-	margin: 50px 0 0 0;
+	margin: 20px 0 0 0;
 }
 
 .header {
@@ -29,6 +29,21 @@
 	justify-content: center;
 	align-items: center;
 	margin: 10px 0 0 10px;
+}
+
+.timeDiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 0 0;
+}
+
+.timeTitle {
+	display: flex;
+	justify-content: start;
+	align-items: start;
+	margin: 20px 0 0 15px;
+	width: 500px;
 }
 
 .btnCreate {
